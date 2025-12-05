@@ -1,4 +1,4 @@
-import img from '../assets/react.svg';
+import img from '../assets/prova.jpg';
 import Card from './Card';
 
 function Grid () {
