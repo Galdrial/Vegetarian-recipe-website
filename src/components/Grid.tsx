@@ -1,0 +1,16 @@
+import img from '../assets/prova.jpg';
+import Card from './Card';
+
+function Grid () {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-full mx-auto px-8 sm:px-20 pt-16 pb-32">
+      <Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.' imgfull='object-cover w-full h-48'  />
+      <Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ' span='row-span-2' />
+      <Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.' imgfull='object-cover w-full h-48' />
+      <Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.' imgfull='object-cover w-full h-48' />
+      <Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.' imgfull='object-cover w-full h-48' />
+    </div>
+  );
+}
+
+export default Grid;
