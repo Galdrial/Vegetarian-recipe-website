@@ -1,6 +1,6 @@
 function OurMission() {
   return (
-    <section className="our-mission border text-black max-w-4xl mx-auto my-12 p-12 bg-white rounded-lg shadow-black/50 shadow-xl mb-32">
+    <section className="our-mission border text-black max-w-4xl mx-auto my-12 p-12 bg-white rounded-lg shadow-black/50 shadow-xl mb-24">
       <h1>🌱 Our Mission</h1>
       <br />
       <p>
@@ -8,7 +8,7 @@ function OurMission() {
         At Green Eats, our mission is simple yet powerful: to inspire and empower everyone, from seasoned chefs to kitchen novices, to embrace the incredible richness of plant-based cooking.
         <br />
         <br />
-        We believe che eating vegetarian should be anything but boring. It should be an adventure in flavor, a celebration of vibrant ingredients, and a daily act of kindness—both to our bodies and to the world around us.
+        We believe che eating vegetarian should be anything but boring. It should be an adventure in flavor, a celebration of vibrant ingredients, and a daily act of kindness both to our bodies and to the world around us.
       </p>
       <br />
       <h2>Our Commitments:</h2>
@@ -19,7 +19,7 @@ function OurMission() {
         <li>To Connect: We aim to build a welcoming community where food lovers can share their passion for green eats, exchange ideas, and encourage one another on their culinary journeys.</li>
       </ul>
       <p>
-        Join us in making every meal a truly Green Eat—a delicious step towards a healthier self and a happier planet.
+        Join us in making every meal a truly Green Eat a delicious step towards a healthier self and a happier planet.
       </p>
     </section>
   )
