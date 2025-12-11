@@ -14,7 +14,7 @@ function Navbar() {
 
         <Search />
 
-        <Navlink href="./our-mission" text="OUR MISSION" />
+        <Navlink href="./our-mission" text="Our Mission" />
        
       </div>
     </nav>
