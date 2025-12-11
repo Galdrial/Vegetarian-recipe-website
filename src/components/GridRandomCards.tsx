@@ -39,7 +39,7 @@ function GridRandomCards() {
 
   return (
     <>
-    <h2 className='font-playwrite text-lime-700 text-4xl font-bold text-center mt-12'>Random Recipes</h2>
+    <h2 className='font-playwrite text-lime-700 text-4xl font-bold text-center mt-12'>Get Inspired</h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-[1300px] mx-auto px-8 sm:px-20 pt-16 pb-24">
       {cards.map((cardData, index) => (
         <Card

@@ -6,10 +6,10 @@ function Card( { src, alt, title, instructions, id }: { src?: string, alt?: stri
   const from = window.location.pathname === '/search' ? 'search' : 'random';
   return (
     <Link to={`/detail/${ id }`} state={{ from }}>
-      <div className="rounded-lg border flex flex-col text-center hover:scale-[1.04] transition-transform duration-300 shadow-black/25 shadow-xl h-80" id={id}>
+      <div className="rounded-lg flex flex-col text-center hover:scale-[1.04] transition-transform duration-300 shadow-black/25 shadow-xl h-80 sm:h-96" id={id}>
 
 
-        <div className="w-full h-48 flex items-center justify-center bg-gray-100 rounded-t-lg overflow-hidden">
+        <div className="w-full h-48 flex items-center justify-center bg-white rounded-t-lg overflow-hidden">
           <img src={src} alt={alt} className="w-full object-cover rounded-t-lg" />
         </div>
         <h2 className='text-lime-700 text-2xl text-center  mx-6 font-bold mt-4 mb-2'>{title}</h2>
