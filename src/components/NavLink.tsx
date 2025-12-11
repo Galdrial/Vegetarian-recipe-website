@@ -1,5 +1,3 @@
-
-
 import { Link } from 'react-router-dom';
 
 function Navlink({href, text}: {href: string; text: string}) {

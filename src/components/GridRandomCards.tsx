@@ -14,7 +14,6 @@ function GridRandomCards() {
         try {
           const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
           const response = await axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=8&include-tags=vegetarian`);
-          // Spoonacular mapping
           interface SpoonacularRecipe {
             id: number;
             title: string;

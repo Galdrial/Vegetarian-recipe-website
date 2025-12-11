@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
@@ -35,22 +34,22 @@ const RecepiDetail: React.FC = () => {
             instructions: recipe.instructions,
           });
         } else {
-          setError('Ricetta non trovata');
+          setError('Recipe not found');
         }
         setLoading(false);
       })
       .catch(() => {
-        setError('Errore nel caricamento');
+        setError('Loading error');
         setLoading(false);
       });
   }, [id]);
 
-  if (loading) return <div>Caricamento...</div>;
+  if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!recipe) return null;
 
   if (!recipe.instructions || recipe.instructions.trim() === "") {
-    return <div>Istruzioni non disponibili per questa ricetta.</div>;
+    return <div>Instructions not available for this recipe.</div>;
   }
 
   const backTo = location.state?.from === 'search' ? '/search' : '/';

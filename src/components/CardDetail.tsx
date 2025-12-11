@@ -10,7 +10,7 @@ function stripHtml(html?: string) {
 function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: string, alt?: string, title?: string, instructions?: string, id?: string, backTo?: string } ) {
   const dispatch = useDispatch();
   console.log( 'Card id prop:', id );
-  // Migliora la formattazione delle instructions: lista puntata se più step, altrimenti paragrafo unico
+  // Improve instructions formatting: use a bullet list if there are multiple steps, otherwise a single paragraph
   let formattedInstructions: React.ReactNode = null;
   if (instructions) {
     const cleanInstructions = stripHtml(instructions);
@@ -52,7 +52,7 @@ function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: stri
               navigate(backTo || '/');
             }}
           >
-            Torna ai risultati
+            Back to Results
           </button>
         </div>
     </div>

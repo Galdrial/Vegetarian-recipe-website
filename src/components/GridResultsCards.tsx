@@ -14,7 +14,6 @@ function GridResultsCards() {
         try {
           const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
           const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=8&diet=vegetarian`);
-          // Spoonacular mapping
           interface SpoonacularRecipe {
             id: number;
             title: string;

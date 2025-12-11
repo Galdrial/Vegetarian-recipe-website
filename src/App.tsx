@@ -10,8 +10,6 @@ import RecepiDetail from './components/RecepiDetail'
 import ScrollToTop from './components/ScrollToTop'
 
 function App() {
-  // Funzione base senza Redux e hooks non usati
-
   return (
     <Router>
         <ScrollToTop />
