@@ -1,39 +1,45 @@
-import axios from 'axios';
+
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setResultsCards } from '../redux/ResultsCardsSlice';
+import { useFetchRecipes } from './hooks/useFetchRecipes';
 
 
 function Search() {
   const [query, setQuery] = React.useState('');
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
+  const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=8&diet=vegetarian&query=${encodeURIComponent(query)}`;
 
-  const handleSearch = async () => {
-    if (!query.trim()) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
-      const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=8&diet=vegetarian&query=${encodeURIComponent(query)}`);
-      const cards = response.data.results.map((item: { id: number; title: string; image: string; }) => ({
+  type SpoonacularSearchResult = {
+    results: Array<{ id: number; title: string; image: string; }>;
+  };
+  type Card = { id: string; title: string; src: string; alt: string };
+  const mapFn = (data: SpoonacularSearchResult): Card[] => Array.isArray(data.results)
+    ? data.results.map((item) => ({
         id: String(item.id),
         title: item.title,
         src: item.image,
         alt: item.title,
-      }));
-      dispatch(setResultsCards(cards));
+      }))
+    : [];
+  const { data, loading, error, fetchData, setError } = useFetchRecipes<SpoonacularSearchResult, Card[]>(url, mapFn);
+
+  const handleSearch = async () => {
+    if (!query.trim()) return;
+    await fetchData();
+  };
+
+  React.useEffect(() => {
+    if (data && data.length > 0) {
+      dispatch(setResultsCards(data));
       navigate('/search');
       setQuery('');
-    } catch {
-      setError('Unable to search recipes. Please try again later.');
-    } finally {
-      setLoading(false);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);

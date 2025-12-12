@@ -1,6 +1,6 @@
 function OurMission() {
   return (
-    <section className="our-mission text-black max-w-4xl mx-auto my-12 px-12 bg-white rounded-lg mb-24">
+    <section className="our-mission flex-1 text-black max-w-4xl mx-auto px-12 bg-white rounded-lg mt-10">
       <h1 className='font-playwrite text-3xl mb-4'>🌱 Our Mission</h1>
       <br />
       <p>

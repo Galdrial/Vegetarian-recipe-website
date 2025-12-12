@@ -9,11 +9,13 @@ import OurMission from './components/OurMission'
 import RecipeDetail from './components/RecepiDetail'
 import ScrollToTop from './components/ScrollToTop'
 
+
 function App() {
   return (
     <Router>
-        <ScrollToTop />
-        <Navbar />
+      <ScrollToTop />
+      <Navbar />
+      <div className="flex-1 flex flex-col">
         <Routes>
           <Route path="/" element={
             <>
@@ -26,7 +28,8 @@ function App() {
           <Route path="/detail/:id" element={<RecipeDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <Footer />
+      </div>
+      <Footer />
     </Router>
   )
 }

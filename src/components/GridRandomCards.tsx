@@ -1,47 +1,51 @@
-import axios from 'axios';
+
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cardSelector, setRandomCards } from '../redux/RandomCardsSlice';
 import Card from './Card';
+import { useFetchRecipes } from './hooks/useFetchRecipes';
+
 
 
 function GridRandomCards() {
   const cards = useSelector(cardSelector);
   const dispatch = useDispatch();
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
+  const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
+  const url = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=8&include-tags=vegetarian`;
+
+  type SpoonacularRandomResult = {
+    recipes: Array<{
+      id: number;
+      title: string;
+      image: string;
+      instructions?: string;
+    }>;
+  };
+  type Card = { id: string; title: string; src: string; alt: string; instructions?: string };
+  const mapFn = (data: SpoonacularRandomResult): Card[] =>
+    Array.isArray(data.recipes)
+      ? data.recipes.map((item) => ({
+          id: String(item.id),
+          title: item.title,
+          src: item.image,
+          alt: item.title,
+          instructions: item.instructions,
+        }))
+      : [];
+  const { loading, error, data, fetchData, setError } = useFetchRecipes<SpoonacularRandomResult, Card[]>(url, mapFn);
 
   React.useEffect(() => {
     if (cards.length === 0) {
-      async function fetchRandomCards() {
-        setLoading(true);
-        setError(null);
-        try {
-          const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
-          const response = await axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=8&include-tags=vegetarian`);
-          interface SpoonacularRecipe {
-            id: number;
-            title: string;
-            image: string;
-            instructions?: string;
-          }
-          const cards = response.data.recipes.map((item: SpoonacularRecipe) => ({
-            id: String(item.id),
-            title: item.title,
-            src: item.image,
-            alt: item.title,
-            instructions: item.instructions,
-          }));
-          dispatch(setRandomCards(cards));
-        } catch {
-          setError('Unable to load random recipes. Please try again later.');
-        } finally {
-          setLoading(false);
-        }
-      }
-      fetchRandomCards();
+      fetchData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, cards.length]);
+
+  React.useEffect(() => {
+    if (data && data.length > 0) {
+      dispatch(setRandomCards(data));
+    }
+  }, [data, dispatch]);
 
   if (loading) {
     return (
@@ -57,7 +61,11 @@ function GridRandomCards() {
         <p className="text-red-700 text-xl font-bold mb-2">{error}</p>
         <button
           className="mt-2 px-4 py-2 bg-lime-700 text-white rounded-3xl hover:bg-lime-800 transition"
-          onClick={() => window.location.reload()}
+          onClick={() => {
+            dispatch(setRandomCards([]));
+            setError(null);
+            fetchData();
+          }}
         >
           Retry
         </button>

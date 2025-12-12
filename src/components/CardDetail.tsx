@@ -9,7 +9,6 @@ function stripHtml(html?: string) {
 
 function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: string, alt?: string, title?: string, instructions?: string, id?: string, backTo?: string } ) {
   const dispatch = useDispatch();
-  console.log( 'Card id prop:', id );
   // Improve instructions formatting: use a bullet list if there are multiple steps, otherwise a single paragraph
   let formattedInstructions: React.ReactNode = null;
   if (instructions) {
