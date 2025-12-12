@@ -5,8 +5,6 @@ import { cardSelector, setRandomCards } from '../redux/RandomCardsSlice';
 import Card from './Card';
 import { useFetchRecipes } from './hooks/useFetchRecipes';
 
-
-
 function GridRandomCards() {
   const cards = useSelector(cardSelector);
   const dispatch = useDispatch();
