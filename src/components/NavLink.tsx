@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom';
 
-function Navlink({href, text}: {href: string; text: string}) {
+interface NavlinkProps {
+  href: string;
+  text: string;
+  ariaLabel?: string;
+}
+
+function Navlink({ href, text, ariaLabel }: NavlinkProps) {
   return (
-    <Link to={href} className="flex items-center min-w-max ml-auto">
+    <Link to={href} className="flex items-center min-w-max ml-auto" aria-label={ariaLabel || text}>
       <span className="text-lime-700 font-playwrite text-lg p-2 hover:underline decoration-2 hover:underline-offset-4">{text}</span>
     </Link>
   );

@@ -34,28 +34,32 @@ function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: stri
   }
   const navigate = useNavigate();
   return (
-    <div className="max-w-4xl text-black mx-auto mb-12 mt-6 px-12 bg-white" id={id}>
+    <div
+      className="max-w-4xl text-black mx-auto mb-12 mt-6 px-12 bg-white"
+      id={id}
+      aria-label={`Recipe detail for ${title}`}
+    >
       <h2 className='text-lime-700 text-3xl text-center  mx-6 font-bold mb-10'>{title}</h2>
       <div className="w-full h-80 flex items-center justify-center bg-gray-100 rounded-t-xl overflow-hidden mb-12">
-        <img src={src} alt={alt} className="w-full object-cover rounded-t-xl" />
+        <img src={src} alt={alt} className="w-full object-cover rounded-t-xl" aria-label={alt ? `Image of ${alt}` : undefined} />
       </div>
       {formattedInstructions}
-        <div className="flex justify-end">
-          <button
-            className="mt-6 px-4 py-2 bg-lime-700 text-white rounded-3xl hover:bg-lime-800 transition"
-            onClick={() => {
-              if (backTo === '/') {
-                dispatch(clearResultsCards());
-                window.dispatchEvent(new CustomEvent('clearCards'));
-              }
-              navigate(backTo || '/');
-            }}
-          >
-            Back to Results
-          </button>
-        </div>
+      <div className="flex justify-end">
+        <button
+          className="mt-6 px-4 py-2 bg-lime-700 text-white rounded-3xl hover:bg-lime-800 transition"
+          onClick={() => {
+            if (backTo === '/') {
+              dispatch(clearResultsCards());
+              window.dispatchEvent(new CustomEvent('clearCards'));
+            }
+            navigate(backTo || '/');
+          }}
+          aria-label="Back to results"
+        >
+          Back to Results
+        </button>
+      </div>
     </div>
-    
   );
 }
 

@@ -62,11 +62,13 @@ function Search() {
           onChange={handleInput}
           onKeyDown={handleKeyDown}
           disabled={loading}
+          aria-label="Search recipes by keyword"
         />
         <button
           className="absolute bg-transparent inset-y-0 right-1 flex items-center cursor-pointer text-gray-500"
           onClick={handleSearch}
           disabled={loading}
+          aria-label="Submit search"
         >
           {loading ? (
             <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-lime-700 mr-2"></span>
