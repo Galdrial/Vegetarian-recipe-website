@@ -15,7 +15,7 @@ function App() {
     <Router>
       <ScrollToTop />
       <Navbar />
-      <div className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col" id="main-content">
         <Routes>
           <Route path="/" element={
             <>
@@ -28,7 +28,7 @@ function App() {
           <Route path="/detail/:id" element={<RecipeDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </div>
+      </main>
       <Footer />
     </Router>
   )
