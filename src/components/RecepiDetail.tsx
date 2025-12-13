@@ -10,6 +10,7 @@ interface RecipeDetail {
   title: string;         // Recipe title
   src: string;           // Image source
   instructions?: string; // Optional instructions
+  ingredients?: string[]; // List of ingredients (formatted)
 }
 
 
@@ -31,9 +32,10 @@ const RecipeDetail: React.FC = () => {
     title: string;
     image: string;
     instructions?: string;
+    extendedIngredients?: Array<{ original: string }>;
   };
   // Define the structure for the card data used in the UI
-  type RecipeCard = { id: string; title: string; src: string; instructions?: string };
+  type RecipeCard = { id: string; title: string; src: string; instructions?: string; ingredients?: string[] };
 
   // Map the API response to the card format
   const mapFn = (data: SpoonacularDetailResult): RecipeCard[] => data && data.id ? [{
@@ -41,6 +43,7 @@ const RecipeDetail: React.FC = () => {
     title: data.title,
     src: data.image,
     instructions: data.instructions,
+    ingredients: data.extendedIngredients?.map(i => i.original) || [],
   }] : [];
 
   // Use the custom hook to fetch recipe details
@@ -72,7 +75,7 @@ const RecipeDetail: React.FC = () => {
 
   // Determine where to navigate back to (search or home)
   const backTo = location.state?.from === 'search' ? '/search' : '/';
-  // Render the CardDetail component with the fetched recipe data
+  // Render the CardDetail component with the fetched recipe data, including ingredients
   return (
     <CardDetail
       key={recipe.id}
@@ -80,6 +83,7 @@ const RecipeDetail: React.FC = () => {
       alt={recipe.title}
       title={recipe.title}
       instructions={recipe.instructions}
+      ingredients={recipe.ingredients}
       backTo={backTo}
     />
   );

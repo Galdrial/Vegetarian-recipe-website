@@ -10,7 +10,7 @@ function stripHtml( html?: string ) {
 
 // CardDetail component displays detailed information for a single recipe
 // Includes image, title, formatted instructions, and a back button
-function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: string, alt?: string, title?: string, instructions?: string, id?: string, backTo?: string } ) {
+function CardDetail( { src, alt, title, instructions, ingredients, id, backTo }: { src?: string, alt?: string, title?: string, instructions?: string, ingredients?: string[], id?: string, backTo?: string } ) {
   const dispatch = useDispatch();
   // Format instructions: use a bullet list if there are multiple steps, otherwise a single paragraph
   let formattedInstructions: React.ReactNode = null;
@@ -21,6 +21,7 @@ function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: stri
     if ( steps.length > 1 ) {
       // Render as a bullet list
       formattedInstructions = (
+        
         <ul className="list-disc pl-6">
           {steps.map( ( step, idx ) => (
             <li key={idx} className='text-green-900 mb-2 text-start text-lg'>
@@ -57,8 +58,22 @@ function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: stri
       <div className="w-full h-80 flex items-center justify-center bg-gray-100 rounded-t-xl overflow-hidden mb-12">
         <img src={highResSrc} alt={alt} className="w-full object-cover rounded-t-xl" aria-label={alt ? `Image of ${ alt }` : undefined} />
       </div>
-      {/* Formatted instructions (list or paragraph) */}
-      {formattedInstructions}
+      {/* Ingredients list */}
+      {ingredients && ingredients.length > 0 && (
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold text-lime-700 mb-2">Ingredients</h3>
+          <ul className="list-disc pl-6">
+            {ingredients.map((ingredient, idx) => (
+              <li key={idx} className="text-green-900 mb-1 text-start text-base">{ingredient}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {/* Instructions section with title */}
+      <div className="mb-8">
+        <h3 className="text-xl font-semibold text-lime-700 mb-2">Instructions</h3>
+        {formattedInstructions}
+      </div>
       {/* Back button to return to results or home */}
       <div className="flex justify-end">
         <button
