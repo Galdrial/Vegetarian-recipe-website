@@ -18,7 +18,7 @@ function Search() {
   // Get the API key from environment variables
   const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
   // Build the API URL for searching recipes by query
-  const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=8&diet=vegetarian&query=${encodeURIComponent(query)}`;
+  const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=vegetarian&query=${encodeURIComponent(query)}`;
 
   // Define the expected structure of the API response
   type SpoonacularSearchResult = {
