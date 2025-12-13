@@ -1,6 +1,6 @@
 
 // Navbar component displays the main navigation bar with logo, search, and links
-import carrot from '../../public/carrot.png';
+import carrot from '../assets/img/carrot-hero.png';
 import Logo from './Logo';
 import Navlink from './NavLink';
 import Search from './Search';
