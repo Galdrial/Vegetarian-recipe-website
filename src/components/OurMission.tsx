@@ -2,7 +2,7 @@ function OurMission() {
   return (
     // OurMission component displays the mission statement and commitments
     <section className="our-mission flex-1 text-black max-w-4xl mx-auto px-12 bg-white rounded-lg mt-10" aria-label="Our Mission section">
-      // Render a section with the mission statement and commitments
+      {/* Mission header */}
       <h1 className='font-playwrite text-3xl mb-4'>🌱 Our Mission</h1>
       <br />
       {/* Mission title */}
