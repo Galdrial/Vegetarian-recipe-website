@@ -2,7 +2,7 @@
 // GridResultsCards component fetches and displays a grid of vegetarian recipes based on search results
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { resultsSelector, setResultsCards } from '../redux/ResultsCardsSlice';
+import { resultsCardsSelector, setResultsCards } from '../redux/ResultsCardsSlice';
 import Card from './Card';
 import { useFetchRecipes } from './hooks/useFetchRecipes';
 
@@ -10,7 +10,7 @@ import { useFetchRecipes } from './hooks/useFetchRecipes';
 
 function GridResultsCards() {
   // Get the list of cards from Redux store
-  const cards = useSelector(resultsSelector);
+  const cards = useSelector(resultsCardsSelector);
   // Get the dispatch function from Redux
   const dispatch = useDispatch();
 
@@ -46,15 +46,20 @@ function GridResultsCards() {
   // Use the custom hook to fetch recipes
   const { loading, error, data, fetchData, setError } = useFetchRecipes<SpoonacularSearchResult, CardType[]>(url, mapFn);
 
-  // Fetch search results on mount if not already loaded
+  // Fetch only on mount if there are no results yet
   React.useEffect(() => {
     if (cards.length === 0) {
-      fetchData().then(() => {
-        if (data && data.length > 0) dispatch(setResultsCards(data));
-      });
+      fetchData();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, cards.length]);
+     
+  }, [cards.length, fetchData]);
+
+  // Update the Redux store when new data arrives
+  React.useEffect(() => {
+    if (data && data.length > 0) {
+      dispatch(setResultsCards(data));
+    }
+  }, [data, dispatch]);
 
   // Show loading spinner while fetching data
   if (loading) {
@@ -102,6 +107,7 @@ function GridResultsCards() {
               src={cardData.src}
               alt={cardData.alt || cardData.title}
               title={cardData.title}
+              from="search"
             />
           ))
         )}

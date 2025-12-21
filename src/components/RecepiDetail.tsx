@@ -55,20 +55,20 @@ const RecipeDetail: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  // Update local state when new data is fetched
+  // Update local state when new data arrives
   React.useEffect(() => {
     if (data && data.length > 0) {
       setRecipe(data[0]);
     }
   }, [data]);
 
-  // Show loading indicator while fetching data
+  // Conditional returns AFTER hooks
+  if (!apiKey || !id || !url) {
+    return <div>Errore: API key o URL non valido. Controlla la configurazione.</div>;
+  }
   if (loading) return <div>Loading...</div>;
-  // Show error message if fetch fails
   if (error) return <div>{error}</div>;
-  // If recipe is not loaded, render nothing
   if (!recipe) return null;
-  // If instructions are missing, show a message
   if (!recipe.instructions || recipe.instructions.trim() === "") {
     return <div>Instructions not available for this recipe.</div>;
   }

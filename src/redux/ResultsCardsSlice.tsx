@@ -26,10 +26,10 @@ const resultsCardsSlice = createSlice({
   },
 });
 
-function resultsSelector(state: RootState) {
+function resultsCardsSelector(state: RootState) {
   return state.resultsCards.cards;
 }
 
 export const { setResultsCards, clearResultsCards } = resultsCardsSlice.actions;
-export { resultsSelector };
+export { resultsCardsSelector };
 export default resultsCardsSlice.reducer;

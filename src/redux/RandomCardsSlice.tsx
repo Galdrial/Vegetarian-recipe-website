@@ -24,10 +24,10 @@ const randomCardsSlice = createSlice({
   },
 });
 
-function cardSelector(state: RootState) {
-      return state.randomCards.cards;
-    };
+function randomCardsSelector(state: RootState) {
+  return state.randomCards.cards;
+};
 
 export const { setRandomCards } = randomCardsSlice.actions;
-export { cardSelector };
+export { randomCardsSelector };
 export default randomCardsSlice.reducer;

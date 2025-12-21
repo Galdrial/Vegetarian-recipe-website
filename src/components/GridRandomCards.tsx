@@ -2,13 +2,13 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cardSelector, setRandomCards } from '../redux/RandomCardsSlice';
+import { randomCardsSelector, setRandomCards } from '../redux/RandomCardsSlice';
 import Card from './Card';
 import { useFetchRecipes } from './hooks/useFetchRecipes';
 
 function GridRandomCards() {
   // Get the list of cards from Redux store
-  const cards = useSelector(cardSelector);
+  const cards = useSelector(randomCardsSelector);
   // Get the dispatch function from Redux
   const dispatch = useDispatch();
   // Get the API key from environment variables
@@ -98,6 +98,7 @@ function GridRandomCards() {
             src={cardData.src}
             alt={cardData.alt || cardData.title}
             title={cardData.title}
+            from="random"
           />
         ))}
       </div>

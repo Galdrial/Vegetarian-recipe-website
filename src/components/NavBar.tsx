@@ -16,7 +16,7 @@ function Navbar() {
         {/* Search bar for recipes */}
         <Search />
         {/* Link to the Our Mission page */}
-        <Navlink href="./our-mission" text="Our Mission" ariaLabel="Go to Our Mission page" />
+        <Navlink href="/our-mission" text="Our Mission" ariaLabel="Go to Our Mission page" />
       </div>
     </nav>
   );

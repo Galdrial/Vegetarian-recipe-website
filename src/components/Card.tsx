@@ -4,9 +4,16 @@
 
 import { Link } from 'react-router-dom';
 
-function Card({ src, alt, title, instructions, id }: { src?: string, alt?: string, title?: string, instructions?: string, id?: string }) {
-  // Determine the origin of navigation (search or random)
-  const from = window.location.pathname === '/search' ? 'search' : 'random';
+interface CardProps {
+  src?: string;
+  alt?: string;
+  title?: string;
+  instructions?: string;
+  id?: string;
+  from: string;
+}
+
+function Card({ src, alt, title, instructions, id, from }: CardProps) {
   return (
      // Link navigates to the recipe detail page, passing the origin in state
     <Link

@@ -31,10 +31,10 @@ function CardDetail( { src, alt, title, instructions, ingredients, id, backTo }:
         </ul>
       );
     } else {
-      // Render as a single paragraph
+      // Render as a single paragraph only if steps has at least one element
       formattedInstructions = (
         <p className='text-green-900 mb-4 text-start text-lg'>
-          {steps[0].charAt( 0 ).toUpperCase() + steps[0].slice( 1 )}
+          {steps.length > 0 ? (steps[0].charAt( 0 ).toUpperCase() + steps[0].slice( 1 )) : 'No instructions available.'}
         </p>
       );
     }
