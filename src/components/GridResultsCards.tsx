@@ -34,14 +34,17 @@ function GridResultsCards() {
   // Define the structure for the card data used in the UI
   type CardType = { id: string; title: string; src: string; alt: string };
 
-  // Map the API response to the card format
-  const mapFn = (data: SpoonacularSearchResult): CardType[] =>
-    data.results.map((item) => ({
-      id: String(item.id),
-      title: item.title,
-      src: item.image,
-      alt: item.title,
-    }));
+  // Map the API response to the card format (stabilized with useCallback)
+  const mapFn = React.useCallback(
+    (data: SpoonacularSearchResult): CardType[] =>
+      data.results.map((item) => ({
+        id: String(item.id),
+        title: item.title,
+        src: item.image,
+        alt: item.title,
+      })),
+    []
+  );
 
   // Use the custom hook to fetch recipes
   const { loading, error, data, fetchData, setError } = useFetchRecipes<SpoonacularSearchResult, CardType[]>(url, mapFn);
@@ -81,9 +84,7 @@ function GridResultsCards() {
           onClick={() => {
             dispatch(setResultsCards([]));
             setError(null);
-            fetchData().then(() => {
-              if (data && data.length > 0) dispatch(setResultsCards(data));
-            });
+            fetchData();
           }}
         >
           Retry

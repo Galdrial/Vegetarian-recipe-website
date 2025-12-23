@@ -37,17 +37,19 @@ const RecipeDetail: React.FC = () => {
   // Define the structure for the card data used in the UI
   type RecipeCard = { id: string; title: string; src: string; instructions?: string; ingredients?: string[] };
 
-  // Map the API response to the card format
-  const mapFn = (data: SpoonacularDetailResult): RecipeCard[] => data && data.id ? [{
-    id: String(data.id),
-    title: data.title,
-    src: data.image,
-    instructions: data.instructions,
-    ingredients: data.extendedIngredients?.map(i => i.original) || [],
-  }] : [];
 
-  // Use the custom hook to fetch recipe details
-  const { data, loading, error, fetchData } = useFetchRecipes<SpoonacularDetailResult, RecipeCard[]>(url, mapFn);
+  // Map the API response to the card format (type-safe: RecipeCard | null)
+  const mapFn = (data: SpoonacularDetailResult): RecipeCard | null =>
+    data && data.id ? {
+      id: String(data.id),
+      title: data.title,
+      src: data.image,
+      instructions: data.instructions,
+      ingredients: data.extendedIngredients?.map(i => i.original) || [],
+    } : null;
+
+  // Use the custom hook to fetch recipe details (type-safe)
+  const { data, loading, error, fetchData } = useFetchRecipes<SpoonacularDetailResult, RecipeCard | null>(url, mapFn);
 
   // Fetch recipe details when the component mounts or the ID changes
   React.useEffect(() => {
@@ -57,19 +59,21 @@ const RecipeDetail: React.FC = () => {
 
   // Update local state when new data arrives
   React.useEffect(() => {
-    if (data && data.length > 0) {
-      setRecipe(data[0]);
+    if (data) {
+      setRecipe(data);
     }
   }, [data]);
 
-  // Conditional returns AFTER hooks
+  // Unified conditional returns AFTER hooks
   if (!apiKey || !id || !url) {
-    return <div>Errore: API key o URL non valido. Controlla la configurazione.</div>;
-  }
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-  if (!recipe) return null;
-  if (!recipe.instructions || recipe.instructions.trim() === "") {
+    return <div>Error: Invalid API key or URL. Please check your configuration.</div>;
+  } else if (loading) {
+    return <div>Loading...</div>;
+  } else if (error) {
+    return <div>{error}</div>;
+  } else if (!recipe) {
+    return null;
+  } else if (!recipe.instructions || recipe.instructions.trim() === "") {
     return <div>Instructions not available for this recipe.</div>;
   }
 
